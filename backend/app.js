@@ -14,7 +14,7 @@ console.log("### DB_PASS:", process.env.MYSQL_PASS);
 
 var indexRouter = require('./app/routes/index.js');
 var usersRouter = require('./app/routes/users.js');
-// var postsRouter = require('./app/routes/posts.js');
+var postsRouter = require('./app/routes/posts.js');
 
 var app = express();
 
@@ -32,7 +32,7 @@ app.use(methodOverride('_method'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/posts', usersRouter);
+app.use('/posts', postsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
