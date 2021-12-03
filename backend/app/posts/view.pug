@@ -16,6 +16,9 @@ block content
           h1 #{post.subject} 
         div#markdown !{post.content} 
         div 
-          button.btn.blue.pointer(type='button', onclick='location.href="/posts/' + post.id + '/edit"') 수정 
+          button.btn.blue.pointer(type='button', onclick='location.href="/posts/' + post.id + '/edit"') 수정
+          button.btn.red.pointer(type='button', onclick="document.getElementById('delForm').submit();") 삭제 
+          form(id='delForm', action='/posts/' + post.id + '?_method=DELETE', method='POST') 
+            input(type='password', name='password')
         div 댓글 창 나올 곳 
       div.side-r

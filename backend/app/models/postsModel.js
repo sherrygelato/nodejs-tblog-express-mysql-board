@@ -112,3 +112,112 @@ exports.insertData = (data, cb) => {
         });
     });
 };
+
+/** 
+ * 글 수정 폼 
+ * 
+ * 하나의 결과값만 리턴 할 경우 자체가 JSON 형식이라 따로 JSON.parse 안해줘도 됨
+ * id : 게시물 번호 
+ * cd : 콜백 함수 
+ * 
+ * @param id 
+ * @param cb 
+ */
+exports.getEdit = (id, cb) => {
+    let sql = 'SELECT `id`, `name`, `email`, `subject`, `content` FROM posts WHERE id=? LIMIT 1';
+    mysqlConn.query(sql, [id], (err, results, fields) => {
+        if (err) {
+            console.error('Error code : ' + err.code);
+            console.error('Error Message : ' + err.message);
+            throw new Error(err);
+        } else {
+            cb(results[0]);
+        }
+    });
+};
+
+/** 
+* 글 수정 프로세스
+* data : 업데이트 될 데이터 
+* cb : 콜백 함수. 리턴값을 컨트롤러에 돌려준다. 
+* 
+* @param data 
+* @param cb 
+*/
+exports.updateData = (data, cb) => {
+    // 해시된 비밀번호를 찾아온다.(현재 비밀번호와 맞는지 확인 위해) 
+    let sql = 'SELECT password FROM posts WHERE id=? LIMIT 1';
+    mysqlConn.query(sql, [data.id], (err, results, fields) => {
+        if (err) throw new Error(err);
+        
+        let hash_password = results[0].password;
+        if (hash_password) {
+            // 비밀번호가 존재할 경우 비밀번호를 비교한다. 
+            bcrypt.compare(data.password, hash_password, (err, result) => {
+                if (err) throw new Error(err);
+                
+                // 결과는 true, false 로 나온다. 
+                if (result) {
+                    let sql = 'UPDATE posts SET name=?, email=?, subject=?, content=?, ip=INET_ATON(?) WHERE id=?';
+                    let bindParam = [
+                        data.name,
+                        data.email,
+                        data.subject,
+                        data.content,
+                        data.ip,
+                        data.id
+                    ];
+                    mysqlConn.query(sql, bindParam, (err, results, fields) => {
+                        if (err) throw new Error(err);
+                        
+                        cb(JSON.parse(JSON.stringify(results)));
+                    });
+                } else {
+                    // 비밀번호 대조에서 결과가 틀리다면 false 를 리턴한다. 
+                    cb(false);
+                }
+            });
+        } else {
+            // 해시된 기존 비밀번호를 찾지 못할 경우 false 를 리턴한다. 
+            cb(false);
+        }
+    });
+};
+
+/** 
+ * 글 삭제 프로세스 
+ * 
+ * @param data 
+ * @param cb 
+ */
+exports.deleteData = (data, cb) => {
+    // 해시된 비밀번호를 찾아온다.(현재 비밀번호와 맞는지 확인 위해) 
+    let sql = 'SELECT password FROM posts WHERE id=? LIMIT 1';
+    mysqlConn.query(sql, [data.id], (err, results, fields) => {
+        if (err) throw new Error(err);
+        
+        let hash_password = results[0].password;
+        if (hash_password) {
+            // 비밀번호가 존재할 경우 비밀번호를 비교한다. 
+            bcrypt.compare(data.password, hash_password, (err, result) => {
+                if (err) throw new Error(err);
+                
+                // 결과는 true, false 로 나온다. 
+                if (result) {
+                    let sql = 'DELETE FROM posts WHERE id=?';
+                    mysqlConn.query(sql, [data.id], (err, results, fields) => {
+                        if (err) throw new Error(err);
+                        
+                        cb(JSON.parse(JSON.stringify(results)));
+                    });
+                } else {
+                    // 비밀번호 대조에서 결과가 틀리다면 false 를 리턴한다. 
+                    cb(false);
+                }
+            });
+        } else {
+            // 해시된 기존 비밀번호를 찾지 못할 경우 false 를 리턴한다. 
+            cb(false);
+        }
+    });
+};
