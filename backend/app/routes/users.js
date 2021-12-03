@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 // mysql 연결 
-const mysqlConnObj = require('../config/mysql').default;
+const mysqlConnObj = require('../config/mysql');
 const mysqlConn = mysqlConnObj.init();
 mysqlConnObj.open(mysqlConn); // 정상적으로 연결되었는지 확인
 

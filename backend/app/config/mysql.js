@@ -1,9 +1,18 @@
-import { createConnection } from 'mysql';
+// import { createConnection } from 'mysql';
+const mysql = require('mysql');
+
+require("dotenv").config();
 
 // mysql 연결 
 const mysqlConnection = {
     init: function () {
         return createConnection({
+            // host: "localhost",
+            // port: "3306",
+            // user: "root",
+            // password: "adminadmin",
+            // database: "MYSQL_DB",
+            // charset: "utf8mb4"
             host: process.env.MYSQL_HOST,
             port: process.env.MYSQL_PORT,
             user: process.env.MYSQL_USER,
@@ -33,4 +42,6 @@ const mysqlConnection = {
             }
         });
     }
-}; export default mysqlConnection;
+};
+
+module.exports = mysqlConnection;

@@ -5,9 +5,14 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 require('dotenv').config();
+// require("dotenv").config({ path: "/path/to/.env.local" }); 
+// 주석처리한 위 코드: .env가 다른 경로에 있다면 path 지정 
+console.log("### DB_HOST:", process.env.MYSQL_HOST);
+console.log("### DB_USER:", process.env.MYSQL_USER);
+console.log("### DB_PASS:", process.env.MYSQL_PASS);
 
-var indexRouter = require('./app/routes/index');
-var usersRouter = require('./app/routes/users').default;
+var indexRouter = require('./app/routes/index.js');
+var usersRouter = require('./app/routes/users.js');
 
 var app = express();
 
