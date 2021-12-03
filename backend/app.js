@@ -13,7 +13,7 @@ console.log("### DB_PASS:", process.env.MYSQL_PASS);
 
 var indexRouter = require('./app/routes/index.js');
 var usersRouter = require('./app/routes/users.js');
-var postsRouter = require('./app/routes/posts.js');
+// var postsRouter = require('./app/routes/posts.js');
 
 var app = express();
 

@@ -1,0 +1,25 @@
+doctype html 
+html(lang='ko') 
+  head meta(charset='utf-8') 
+    meta(name='viewport' content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=3.0') 
+  
+    title= title 
+    link(rel='shortcut icon', href='favicon.ico', type='image/x-icon') 
+  
+    // 폰트 
+    link(rel='stylesheet', href='//fonts.googleapis.com/css?family=Noto+Sans+KR:500&display=swap&subset=korean') 
+    link(rel='stylesheet', href='//fonts.googleapis.com/css?family=East+Sea+Dokdo&display=swap') 
+    link(rel='stylesheet', href='//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.css') 
+
+    // 기본 CSS 
+    link(rel='stylesheet', href='/stylesheets/style.css') 
+    link(rel='stylesheet', href='/stylesheets/button.css') 
+    link(rel='stylesheet', href='/stylesheets/form.css') 
+    link(rel='stylesheet', href='/stylesheets/list.css') 
+
+    script(src='//kit.fontawesome.com/c14d6e5016.js', crossorigin='anonymous') 
+  
+  body#wrapper.theme-light 
+    block header 
+      include ../partials/header 
+    block content

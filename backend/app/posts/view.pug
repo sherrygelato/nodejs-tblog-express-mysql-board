@@ -1,0 +1,21 @@
+extends ../layouts/main_layout 
+
+block content 
+
+  link(rel='stylesheet', href='//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/an-old-hope.min.css') 
+  script(src='//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js') 
+  script hljs.initHighlightingOnLoad(); 
+  
+  link(rel='stylesheet', href='/stylesheets/md/modest.css') 
+  
+  div#container 
+    div.row 
+      div.side-f 
+      div.main 
+        div 
+          h1 #{post.subject} 
+        div#markdown !{post.content} 
+        div 
+          button.btn.blue.pointer(type='button', onclick='location.href="/posts/' + post.id + '/edit"') 수정 
+        div 댓글 창 나올 곳 
+      div.side-r

@@ -1,0 +1,42 @@
+extends ../layouts/main_layout 
+
+block content 
+
+  if mode === 'edit' 
+    - var tmp_title = '글 수정하기' 
+    - var tmp_action = '/posts/' + post.id + '?_method=PUT' // 필수 
+  else 
+    - var tmp_title = '글 작성하기' 
+    - var tmp_action = '/posts/new' 
+    
+  h1= tmp_title 
+  div.ce 
+    form(action=tmp_action method='post') 
+      if mode === 'edit' 
+        //input(type='hidden' name='_method' value='PUT') // 있어도 되고 없어도 되고.. 
+        input(type='hidden' name='id' value='' + post.id + '') 
+      div.line40 
+      div.post_title 
+        label 
+          textarea.textarea_title(name='subject' id='form_subject' placeholder='제목을 입력하세요.' tabindex='1') #{post.subject} 
+      div 
+        label 
+          textarea.textarea(name='content' id='form_content' tabindex='2') #{post.content} 
+      div 
+        label 
+          input.input.strong(type='text' name='tags' id='form_tags' value='' placeholder='태그1,태그2,태그3' tabindex='3') 
+      div 
+        label 
+          input.input(type='text' name='name' id='form_name' value='' + post.name + '' placeholder='작성자 이름' tabindex='4') 
+      div 
+        label 
+          input.input(type='email' name='email' id='form_email' value='' + post.email + '' placeholder='작성자 메일주소' tabindex='5') 
+      div 
+        label 
+          input.input(type='password' name='password' id='form_passworrd' placeholder='비밀번호 입력' tabindex='6') 
+      div.line20 
+      div.ce 
+        span.m5 
+          button.btn.green.pointer(type='submit' tabindex='7') 저 장 
+        span.m5 
+          button.btn.gray.pointer(type='button' tabindex='8') 취 소

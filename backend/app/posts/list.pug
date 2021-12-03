@@ -1,0 +1,46 @@
+extends ../layouts/main_layout 
+
+block content 
+  div#container 
+    div.board 
+      //div#searchDiv 
+      // form(action='/posts' method='get') 
+      // input(type='hidden' name='page') 
+      // input.search-input(type='text' placeholder='Search..' name='search') 
+      div.rgt 
+        button.btn.green.pointer(type='button' onclick='location.href="/posts/new"') 글쓰기 
+      ul 
+        li 게시판 제목 
+        li 
+          ul.list 
+            for post, index in posts 
+              li 
+                ul 
+                  li.ranking.lft 
+                    div.like 추천 #{post.like} 
+                    div.hate 반대 #{post.hate} 
+                    div.comment 댓글 #{post.comment_cnt} 
+                    div.hit 조회 #{post.hit} 
+                  li.content.lft 
+                    - let id = post.id; 
+                    div.title(onclick="location.href='/posts/"+id+"'") #{post.subject} 
+                    div.summary.ellipsis(onclick="location.href='/posts/"+id+"'") #{post.content} 
+                    div.tag #태그 #태그 
+                  li.author 
+                    div 글쓴이 
+                    div #{post.name} 
+                  li.date 
+                  div 작성일 
+                  div #{post.created_at} 
+    div.ce 
+      div#pagingDiv 
+        ul 
+          li 
+            a(href='#') &laquo; 
+            a(href='#') 1 
+            a(href='#') 2 
+            a.active(href='#') 3 
+            a(href='#') 4 a(href='#') 5 
+            a(href='#') &raquo; 
+    div.rgt 
+      button.btn.green.pointer(type='button' onclick='location.href="/posts/new"') 글쓰기
