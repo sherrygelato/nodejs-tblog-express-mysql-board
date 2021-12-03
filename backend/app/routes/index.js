@@ -6,6 +6,6 @@ const indexController = require('../controllers/indexController.js');
 const mysql = require('../config/mysql.js');
 
 /* GET home page. */
-router.get('/', indexController);
+router.get('/', indexController.indexPage);
 
 module.exports = router;

@@ -6,7 +6,7 @@ require("dotenv").config();
 // mysql 연결 
 const mysqlConnection = {
     init: function () {
-        return createConnection({
+        return mysql.createConnection({
             // host: "localhost",
             // port: "3306",
             // user: "root",
